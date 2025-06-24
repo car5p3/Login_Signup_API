@@ -1,6 +1,4 @@
 import arcjet, { shield, detectBot, tokenBucket } from "@arcjet/node";
-import dotenv from "dotenv";
-dotenv.config();
 
 const aj = arcjet({
   key: process.env.ARCJET_KEY,

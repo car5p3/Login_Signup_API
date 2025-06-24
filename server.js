@@ -2,13 +2,11 @@ import cluster from "node:cluster";
 import { availableParallelism } from "node:os";
 import process from "node:process";
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./database/db.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
-
-dotenv.config();
+import authRoutes from "./routes/auth.route.js";
 
 const numCPUs = availableParallelism();
 
@@ -50,6 +48,7 @@ if (cluster.isPrimary) {
       app.use(arcjetMiddleware);
 
       // Custom Routes Middlewares
+      app.use("/api/auth/", authRoutes)
 
       // Post-Custom Middleware
       app.use(errorMiddleware);
